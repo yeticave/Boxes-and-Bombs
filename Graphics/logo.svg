@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Boxes and Bombs
+Version 1.0.0, December 31st, 2017
+
+Copyright (C) 2017 Gabor Soos
+
+This software is provided 'as-is', without any express or implied warranty.In no
+event will the authors be held liable for any damages arising from the use of
+this software.
+
+Permission is granted to anyone to use this software for any purpose, including
+commercial applications, and to alter it and redistribute it freely, subject to
+the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim
+   that you wrote the original software. If you use this software in a product,
+   an acknowledgment in the product documentation would be appreciated but is
+   not required.
+2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+-->
+<svg version="1.1" width="500" height="500" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<g transform="translate(0, 142) scale(8.625)">
+		<use xlink:href="#logo" stroke="black" stroke-width="2" />
+		<g id="logo">
+			<use xlink:href="textures.svg#bomb" y="4" fill="white" />
+
+			<g transform="translate(17)">
+				<g fill="green">
+					<use xlink:href="textures.svg#font__B" x="0" />
+					<use xlink:href="textures.svg#font__o" x="4.5" />
+					<use xlink:href="textures.svg#font__x" x="9" />
+					<use xlink:href="textures.svg#font__e" x="14.5" />
+					<use xlink:href="textures.svg#font__s" x="19" />
+				</g>
+
+				<g fill="white" transform="translate(0, 8)">
+					<use xlink:href="textures.svg#font__a" x="4.5" />
+					<use xlink:href="textures.svg#font__n" x="9" />
+					<use xlink:href="textures.svg#font__d" x="13.5" />
+				</g>
+
+				<g fill="red" transform="translate(0, 16)">
+					<use xlink:href="textures.svg#font__B" x="0" />
+					<use xlink:href="textures.svg#font__o" x="4.5" />
+					<use xlink:href="textures.svg#font__m" x="9" />
+					<use xlink:href="textures.svg#font__b" x="14.5" />
+					<use xlink:href="textures.svg#font__s" x="19" />
+				</g>
+			</g>
+
+			<use xlink:href="textures.svg#bomb" x="42" y="4" fill="white" />
+		</g>
+	</g>
+</svg>

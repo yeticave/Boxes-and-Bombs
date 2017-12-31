@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Boxes and Bombs
+Version 1.0.0, December 31st, 2017
+
+Copyright (C) 2017 Gabor Soos
+
+This software is provided 'as-is', without any express or implied warranty.In no
+event will the authors be held liable for any damages arising from the use of
+this software.
+
+Permission is granted to anyone to use this software for any purpose, including
+commercial applications, and to alter it and redistribute it freely, subject to
+the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not claim
+   that you wrote the original software. If you use this software in a product,
+   an acknowledgment in the product documentation would be appreciated but is
+   not required.
+2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+-->
+<svg version="1.1" width="256" height="256" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<style type="text/css">
+			path { fill: white; fill-rule: evenodd; }
+			.bombFill { fill: white; }
+			.fieldStroke { fill: none; stroke: rgb(128, 64, 0); stroke-width: 2; }
+			.outline { stroke: black; stroke-width: 2; }
+			.row:nth-of-type(2) { transform: translate(0, 16px); }
+			.row:nth-of-type(3) { transform: translate(0, 32px); }
+			.row:nth-of-type(4) { transform: translate(0, 48px); }
+			.row:nth-of-type(5) { transform: translate(0, 64px); }
+			.row:nth-of-type(6) { transform: translate(0, 80px); }
+			.row:nth-of-type(7) { transform: translate(0, 96px); }
+			.row:nth-of-type(8) { transform: translate(0, 112px); }
+			.row:nth-of-type(9) { transform: translate(0, 128px); }
+			.row:nth-of-type(10) { transform: translate(0, 144px); }
+			.row:nth-of-type(11) { transform: translate(0, 160px); }
+			.row:nth-of-type(12) { transform: translate(0, 176px); }
+			.row:nth-of-type(13) { transform: translate(0, 192px); }
+			.row:nth-of-type(14) { transform: translate(0, 208px); }
+			.row:nth-of-type(15) { transform: translate(0, 224px); }
+			.row:nth-of-type(16) { transform: translate(0, 240px); }
+			.row > *:nth-child(2) { transform: translate(16px); }
+			.row > *:nth-child(3) { transform: translate(32px); }
+			.row > *:nth-child(4) { transform: translate(48px); }
+			.row > *:nth-child(5) { transform: translate(64px); }
+			.row > *:nth-child(6) { transform: translate(80px); }
+			.row > *:nth-child(7) { transform: translate(96px); }
+			.row > *:nth-child(8) { transform: translate(112px); }
+			.row > *:nth-child(9) { transform: translate(128px); }
+			.row > *:nth-child(10) { transform: translate(144px); }
+			.row > *:nth-child(11) { transform: translate(160px); }
+			.row > *:nth-child(12) { transform: translate(176px); }
+			.row > *:nth-child(13) { transform: translate(192px); }
+			.row > *:nth-child(14) { transform: translate(208px); }
+			.row > *:nth-child(15) { transform: translate(224px); }
+			.row > *:nth-child(16) { transform: translate(240px); }
+		</style>
+	</defs>
+
+	<g class="row">
+		<!-- Field -->
+		<g id="field">
+			<rect x="0" y="0" width="16" height="16" fill="black" />
+			<rect x="1" y="1" width="14" height="14" fill="rgb(128, 64, 0)" />
+			<rect x="2" y="2" width="12" height="12" fill="rgb(255, 224, 160)" />
+		</g>
+
+		<!-- Hover Field -->
+		<g>
+			<use href="#field" />
+			<path id="field__hover" class="fieldStroke" d="m8,5 v6 M5,8 h6" />
+		</g>
+
+		<!-- Active Field -->
+		<g>
+			<use href="#field" />
+			<path id="field__active" class="fieldStroke" d="m4,4 h8 v8 h-8 z" />
+		</g>
+
+		<!-- Active Hover Field -->
+		<g>
+			<use href="#field" />
+			<use href="#field__active" />
+			<use href="#field__hover" />
+		</g>
+
+		<!-- Marker 1 -->
+		<g>
+			<use class="outline" href="#marker__1" />
+			<use id="marker__1" href="#font__1" transform="translate(6, 3)" />
+		</g>
+
+		<!-- Marker 2 -->
+		<g>
+			<use class="outline" href="#marker__2" />
+			<use id="marker__2" href="#font__2" transform="translate(5, 3)" />
+		</g>
+
+		<!-- Marker 3 -->
+		<g>
+			<use class="outline" href="#marker__3" />
+			<use id="marker__3" href="#font__3" transform="translate(5, 3)" />
+		</g>
+
+		<!-- Marker 4 -->
+		<g>
+			<use class="outline" href="#marker__4" />
+			<use id="marker__4" href="#font__4" transform="translate(5, 3)" />
+		</g>
+
+		<!-- Marker 5 -->
+		<g>
+			<use class="outline" href="#marker__5" />
+			<use id="marker__5" href="#font__5" transform="translate(5, 3)" />
+		</g>
+
+		<!-- Marker 6 -->
+		<g>
+			<use class="outline" href="#marker__6" />
+			<use id="marker__6" href="#font__6" transform="translate(5, 3)" />
+		</g>
+
+		<!-- Skull and Bones -->
+		<g>
+			<use class="outline" href="#bomb" />
+			<g id="bomb">
+				<path id="bomb__bone" class="bombFill" d="m1,2 h1 v-1 h1 v2 h1 v1 h-1 v-1 h-2 v-1 z" />
+				<use href="#bomb__bone" transform="translate(16) scale(-1, 1)" />
+				<use href="#bomb__bone" transform="translate(0, 16) scale(1, -1)" />
+				<use href="#bomb__bone" transform="translate(16, 16) scale(-1, -1)" />
+				<g id="bomb__skull">
+					<path class="bombFill" d="m6,3 h2 v8 h-2 v-1 h-1 v-1 h-1 v-4 h1 v-1 h1 Z M7,5 h-1 v1 h-1 v2 h2 Z M8,9 h-1 v1 h1 z" />
+					<path class="bombFill" d="m5,12 h1 v1 h2 v1 h-2 v-1 h-1 z" />
+				</g>
+				<use href="#bomb__skull" transform="translate(16) scale(-1, 1)" />
+			</g>
+		</g>
+	</g>
+
+	<g transform="translate(1, 17)">
+		<g class="row">
+			<!-- Exclamation -->
+			<g>
+				<use class="outline" href="#font__exclamation" />
+				<path id="font__exclamation" d="m1,1 h1 v5 h-1 Z M1,7 h1 v1 h-1 z" />
+			</g>
+
+			<!-- Quotation -->
+			<g>
+				<use class="outline" href="#font__quotation" />
+				<path id="font__quotation" d="m1,1 h1 v2 h-1 Z M3,1 h1 v2 h-1 z" />
+			</g>
+
+			<!-- Hash -->
+			<g>
+				<use class="outline" href="#font__hash" />
+				<g id="font__hash">
+					<path d="m2,1 h1 v7 h-1 Z M4,1 h1 v7 h-1" />
+					<path d="m1,4 h5 v-1 h-5 Z M1,6 h5 v-1 h-5 z" />
+				</g>
+			</g>
+
+			<!-- Dollar -->
+			<g>
+				<use class="outline" href="#font__dollar" />
+				<g id="font__dollar">
+					<path d="m2,2 h3 v1 h-3 v1 h3 v1 h1 v1 h-1 v1 h-3 v-1 h3 v-1 h-3 v-1 h-1 v-1 h1 z" />
+					<path d="m3,1 h1 v7 h-1 z" />
+				</g>
+			</g>
+
+			<!-- Division -->
+			<g>
+				<use class="outline" href="#font__division" />
+				<path id="font__division" d="m2,2 h1 v1 h-1 Z M2,6 h1 v1 h-1 Z M1,4 h3 v1 h-3 z" />
+			</g>
+
+			<!-- Ampersand -->
+			<g>
+				<use class="outline" href="#font__ampersand" />
+				<path id="font__ampersand" d="m2,1 h2 v1 h1 v1 h-1 v1 h-1 v1 h1 v1 h1 v-1 h1 v1 h-1 v1 h1 v1 h-1 v-1 h-1 v1 h-2 v-1 h-1 v-2 h1 v-1 h-1 v-2 h1 Z M2,2 v2 h1 v-1 h1 v-1 Z M2,5 v2 h2 v-1 h-1 v-1 z" />
+			</g>
+
+			<!-- Apostrophe -->
+			<g>
+				<use class="outline" href="#font__apostrophe" />
+				<path id="font__apostrophe" d="m1,1 h1 v2 h-1 z" />
+			</g>
+
+			<!-- Opening Parenthesis -->
+			<g>
+				<use class="outline" href="#font__opening-parenthesis" />
+				<path id="font__opening-parenthesis" d="m2,1 h1 v1 h-1 v5 h1 v1 h-1 v-1 h-1 v-5 h1 z" />
+			</g>
+
+			<!-- Closing Parenthesis -->
+			<g>
+				<use class="outline" href="#font__closing-parenthesis" />
+				<use id="font__closing-parenthesis" href="#font__opening-parenthesis" transform="rotate(180, 2, 4.5)" />
+			</g>
+
+			<!-- Asterisk -->
+			<g>
+				<use class="outline" href="#font__asterisk" />
+				<path id="font__asterisk" d="m1,3 h1 v1 h1 v-1 h1 v1 h-1 v1 h1 v1 h-1 v-1 h-1 v1 h-1 v-1 h1 v-1 h-1 z" />
+			</g>
+
+			<!-- Plus -->
+			<g>
+				<use class="outline" href="#font__plus" />
+				<path id="font__plus" d="m2,3 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z" />
+			</g>
+
+			<!-- Comma -->
+			<g>
+				<use class="outline" href="#font__comma" />
+				<path id="font__comma" d="m1,7 h1 v2 h-1 z" />
+			</g>
+
+			<!-- Minus -->
+			<g>
+				<use class="outline" href="#font__minus" />
+				<path id="font__minus" d="m1,4 h3 v1 h-3 z" />
+			</g>
+
+			<!-- Period -->
+			<g>
+				<use class="outline" href="#font__period" />
+				<path id="font__period" d="m1,7 h1 v1 h-1 z" />
+			</g>
+
+			<!-- Slash -->
+			<g>
+				<use class="outline" href="#font__slash" />
+				<path id="font__slash" d="m5,1 h1 v1 h-1 v2 h-1 v1 h-1 v2 h-1 v1 h-1 v-1 h1 v-2 h1 v-1 h1 v-2 h1 z" />
+			</g>
+
+			<!-- 0 -->
+			<g>
+				<use class="outline" href="#font__0" />
+				<path id="font__0" d="m2,1 h2 v1 h1 v5 h-1 v1 h-2 v-1 h-1 v-5 h1 Z M2,2 v5 h2 v-5 Z M2,5 h1 v-1 h1 v1 h-1 v1 h-1 z" />
+			</g>
+		</g>
+
+		<g class="row">
+			<!-- 1 -->
+			<g>
+				<use class="outline" href="#font__1" />
+				<path id="font__1" d="m2,1 h1 v7 h-1 v-5 h-1 v-1 h1 z" />
+			</g>
+
+			<!-- 2 -->
+			<g>
+				<use class="outline" href="#font__2" />
+				<path id="font__2" d="m2,1 h2 v1 h1 v2 h-1 v1 h-1 v1 h-1 v1 h3 v1 h-4 v-2 h1 v-1 h1 v-1 h1 v-2 h-2 v1 h-1 v-1 h1 z" />
+			</g>
+
+			<!-- 3 -->
+			<g>
+				<use class="outline" href="#font__3" />
+				<path id="font__3" d="m2,1 h2 v1 h1 v2 h-1 v1 h1 v2 h-1 v1 h-2 v-1 h-1 v-1 h1 v1 h2 v-2 h-1 v-1 h1 v-2 h-2 v1 h-1 v-1 h1 z" />
+			</g>
+
+			<!-- 4 -->
+			<g>
+				<use class="outline" href="#font__4" />
+				<path id="font__4" d="m4,1 h1 v1 h-1 v1 h-1 v1 h-1 v1 h2 v-1 h1 v4 h-1 v-2 h-3 v-2 h1 v-1 h1 v-1 h1 z" />
+			</g>
+
+			<!-- 5 -->
+			<g>
+				<use class="outline" href="#font__5" />
+				<path id="font__5" d="m1,1 h4 v1 h-3 v1 h2 v1 h1 v3 h-1 v1 h-2 v-1 h-1 v-1 h1 v1 h2 v-3 h-3 z" />
+			</g>
+
+			<!-- 6 -->
+			<g>
+				<use class="outline" href="#font__6" />
+				<path id="font__6" d="m2,1 h2 v1 h-2 v1 h2 v1 h1 v3 h-1 v1 h-2 v-1 h-1 v-5 h1 Z M2,4 v3 h2 v-3 z" />
+			</g>
+
+			<!-- 7 -->
+			<g>
+				<use class="outline" href="#font__7" />
+				<path id="font__7" d="m1,1 h4 v3 h-1 v2 h-1 v2 h-1 v-2 h1 v-2 h1 v-2 h-3 z" />
+			</g>
+
+			<!-- 8 -->
+			<g>
+				<use class="outline" href="#font__8" />
+				<path id="font__8" d="m2,1 h2 v1 h1 v2 h-1 v1 h1 v2 h-1 v1 h-2 v-1 h-1 v-2 h1 v-1 h-1 v-2 h1 Z M2,2 v2 h2 v-2 Z M2,5 v2 h2 v-2 z" />
+			</g>
+
+			<!-- 9 -->
+			<g>
+				<use class="outline" href="#font__9" />
+				<use id="font__9" href="#font__6" transform="rotate(180, 3, 4.5)" />
+			</g>
+
+			<!-- Colon -->
+			<g>
+				<use class="outline" href="#font__colon" />
+				<path id="font__colon" d="m1,4 h1 v1 h-1 Z M1,6 h1 v1 h-1 z" />
+			</g>
+
+			<!-- Semicolon -->
+			<g>
+				<use class="outline" href="#font__semicolon" />
+				<path id="font__semicolon" d="m1,3 h1 v1 h-1 Z M1,7 h1 v2 h-1 z" />
+			</g>
+
+			<!-- Lesser Than -->
+			<g>
+				<use class="outline" href="#font__lesser-than" />
+				<path id="font__lesser-than" d="m3,2 h1 v1 h-1 v1 h-1 v1 h1 v1 h1 v1 h-1 v-1 h-1 v-1 h-1 v-1 h1 v-1 h1 z" />
+			</g>
+
+			<!-- Equals -->
+			<g>
+				<use class="outline" href="#font__equals" />
+				<path id="font__equals" d="m1,3 h3 v1 h-3 Z M 1,5 h3 v1 h-3 z" />
+			</g>
+
+			<!-- Greater Than -->
+			<g>
+				<use class="outline" href="#font__greater-than" />
+				<use id="font__greater-than" href="#font__lesser-than" transform="rotate(180, 2.5, 4.5)" />
+			</g>
+
+			<!-- Question -->
+			<g>
+				<use class="outline" href="#font__question" />
+				<path id="font__question" d="m2,1 h2 v1 h1 v2 h-1 v1 h-1 v1 h-1 v-2 h2 v-2 h-2 v1 h-1 v-1 h1 Z M2,7 h1 v1 h-1 z" />
+			</g>
+
+			<!-- At -->
+			<g>
+				<use class="outline" href="#font__at" />
+				<path id="font__at" d="m2,1 h2 v1 h1 v4 h-2 v-1 h-1 v-1 h1 v-1 h1 v-1 h-2 v5 h3 v1 h-3 v-1 h-1 v-5 h1 Z M3,4 h1 v1 h-1 z" />
+			</g>
+		</g>
+
+		<g class="row">
+			<!-- A -->
+			<g>
+				<use class="outline" href="#font__A" />
+				<path id="font__A" d="m2,1 h2 v1 h1 v6 h-1 v-3 h-2 v3 h-1 v-6 h1 Z M2,2 v2 h2 v-2 z" />
+			</g>
+
+			<!-- B -->
+			<g>
+				<use class="outline" href="#font__B" />
+				<path id="font__B" d="m1,1 h3 v1 h1 v2 h-1 v1 h1 v2 h-1 v1 h-3 Z M2,2 v2 h2 v-2 Z M2,5 v2 h2 v-2 z" />
+			</g>
+
+			<!-- C -->
+			<g>
+				<use class="outline" href="#font__C" />
+				<path id="font__C" d="m2,1 h2 v1 h1 v1 h-1 v-1 h-2 v5 h2 v-1 h1 v1 h-1 v1 h-2 v-1 h-1 v-5 h1 z" />
+			</g>
+
+			<!-- D -->
+			<g>
+				<use class="outline" href="#font__D" />
+				<path id="font__D" d="m1,1 h3 v1 h1 v5 h-1 v1 h-3 Z M2,2 v5 h2 v-5 z" />
+			</g>
+
+			<!-- E -->
+			<g>
+				<use class="outline" href="#font__E" />
+				<path id="font__E" d="m1,1 h4 v1 h-3 v2 h2 v1 h-2 v2 h3 v1 h-4 z" />
+			</g>
+
+			<!-- F -->
+			<g>
+				<use class="outline" href="#font__F" />
+				<path id="font__F" d="m1,1 h4 v1 h-3 v2 h2 v1 h-2 v3 h-1 z" />
+			</g>
+
+			<!-- G -->
+			<g>
+				<use class="outline" href="#font__G" />
+				<path id="font__G" d="m2,1 h2 v1 h1 v1 h-1 v-1 h-2 v5 h2 v-2 h-1 v-1 h2 v3 h-1 v1 h-2 v-1 h-1 v-5 h1 z" />
+			</g>
+
+			<!-- H -->
+			<g>
+				<use class="outline" href="#font__H" />
+				<path id="font__H" d="m1,1 h1 v3 h2 v-3 h1 v7 h-1 v-3 h-2 v3 h-1 z" />
+			</g>
+
+			<!-- I -->
+			<g>
+				<use class="outline" href="#font__I" />
+				<path id="font__I" d="m1,1 h3 v1 h-1 v5 h1 v1 h-3 v-1 h1 v-5 h-1 z" />
+			</g>
+
+			<!-- J -->
+			<g>
+				<use class="outline" href="#font__J" />
+				<path id="font__J" d="m4,1 h1 v6 h-1 v1 h-2 v-1 h-1 v-1 h1 v1 h2 z" />
+			</g>
+
+			<!-- K -->
+			<g>
+				<use class="outline" href="#font__K" />
+				<path id="font__K" d="m1,1 h1 v3 h1 v-1 h1 v-2 h1 v2 h-1 v1 h-1 v1 h1 v1 h1 v2 h-1 v-2 h-1 v-1 h-1 v3 h-1 z" />
+			</g>
+
+			<!-- L -->
+			<g>
+				<use class="outline" href="#font__L" />
+				<path id="font__L" d="m1,1 h1 v6 h2 v1 h-3 z" />
+			</g>
+
+			<!-- M -->
+			<g>
+				<use class="outline" href="#font__M" />
+				<path id="font__M" d="m1,1 h1 v1 h1 v1 h1 v-1 h1 v-1 h1 v7 h-1 v-5 h-1 v1 h-1 v-1 h-1 v5 h-1 z" />
+			</g>
+
+			<!-- N -->
+			<g>
+				<use class="outline" href="#font__N" />
+				<path id="font__N" d="m1,1 h1 v2 h1 v1 h1 v-3 h1 v7 h-1 v-3 h-1 v-1 h-1 v4 h-1 z" />
+			</g>
+
+			<!-- O -->
+			<g>
+				<use class="outline" href="#font__O" />
+				<path id="font__O" d="m2,1 h2 v1 h1 v5 h-1 v1 h-2 v-1 h-1 v-5 h1 Z M2,2 v5 h2 v-5 z" />
+			</g>
+
+			<!-- P -->
+			<g>
+				<use class="outline" href="#font__P" />
+				<path id="font__P" d="m1,1 h3 v1 h1 v2 h-1 v1 h-2 v3 h-1 Z M2,2 v2 h2 v-2 z" />
+			</g>
+		</g>
+
+		<g class="row">
+			<!-- Q -->
+			<g>
+				<use class="outline" href="#font__Q" />
+				<path id="font__Q" d="m2,1 h2 v1 h1 v4 h-1 v1 h1 v1 h-1 v-1 h-1 v1 h-1 v-1 h-1 v-5 h1 Z M2,2 v5 h1 v-1 h1 v-4 z" />
+			</g>
+
+			<!-- R -->
+			<g>
+				<use class="outline" href="#font__R" />
+				<path id="font__R" d="m1,1 h3 v1 h1 v2 h-1 v1 h1 v3 h-1 v-3 h-2 v3 h-1 Z M2,2 v2 h2 v-2 z" />
+			</g>
+
+			<!-- S -->
+			<g>
+				<use class="outline" href="#font__S" />
+				<path id="font__S" d="m2,1 h3 v1 h-3 v2 h2 v1 h1 v2 h-1 v1 h-3 v-1 h3 v-2 h-2 v-1 h-1 v-2 h1 z" />
+			</g>
+
+			<!-- T -->
+			<g>
+				<use class="outline" href="#font__T" />
+				<path id="font__T" d="m1,1 h5 v1 h-2 v6 h-1 v-6 h-2 z" />
+			</g>
+
+			<!-- U -->
+			<g>
+				<use class="outline" href="#font__U" />
+				<path id="font__U" d="m1,1 h1 v6 h2 v-6 h1 v6 h-1 v1 h-2 v-1 h-1 z" />
+			</g>
+
+			<!-- V -->
+			<g>
+				<use class="outline" href="#font__V" />
+				<path id="font__V" d="m1,1 h1 v3 h1 v2 h1 v-2 h1 v-3 h1 v3 h-1 v2 h-1 v2 h-1 v-2 h-1 v-2 h-1 z" />
+			</g>
+
+			<!-- W -->
+			<g>
+				<use class="outline" href="#font__W" />
+				<path id="font__W" d="m1,1 h1 v3 h1 v2 h1 v-2 h1 v2 h1 v-2 h1 v-3 h1 v3 h-1 v2 h-1 v2 h-1 v-2 h-1 v2 h-1 v-2 h-1 v-2 h-1 z" />
+			</g>
+
+			<!-- X -->
+			<g>
+				<use class="outline" href="#font__X" />
+				<path id="font__X" d="m1,1 h1 v2 h1 v1 h1 v-1 h1 v-2 h1 v2 h-1 v1 h-1 v1 h1 v1 h1 v2 h-1 v-2 h-1 v-1 h-1 v1 h-1 v2 h-1 v-2 h1 v-1 h1 v-1 h-1 v-1 h-1 z" />
+			</g>
+
+			<!-- Y -->
+			<g>
+				<use class="outline" href="#font__Y" />
+				<path id="font__Y" d="m1,1 h1 v2 h1 v1 h1 v-1 h1 v-2 h1 v2 h-1 v1 h-1 v4 h-1 v-4 h-1 v-1 h-1 z" />
+			</g>
+
+			<!-- Z -->
+			<g>
+				<use class="outline" href="#font__Z" />
+				<path id="font__Z" d="m1,1 h4 v2 h-1 v1 h-1 v1 h-1 v2 h3 v1 h-4 v-3 h1 v-1 h1 v-1 h1 v-1 h-3 z" />
+			</g>
+
+			<!-- Opening Bracket -->
+			<g>
+				<use class="outline" href="#font__opening-bracket" />
+				<path id="font__opening-bracket" d="m1,1 h2 v1 h-1 v5 h1 v1 h-2 z" />
+			</g>
+
+			<!-- Backslash -->
+			<g>
+				<use class="outline" href="#font__backslash" />
+				<use id="font__backslash" href="#font__slash" transform="scale(-1, 1) translate(-7)" />
+			</g>
+
+			<!-- Closing Bracket -->
+			<g>
+				<use class="outline" href="#font__closing-bracket" />
+				<use id="font__closing-bracket" href="#font__opening-bracket" transform="rotate(180, 2, 4.5)" />
+			</g>
+
+			<!-- Caret -->
+			<g>
+				<use class="outline" href="#font__caret" />
+				<path id="font__caret" d="m3,1 h1 v1 h1 v1 h1 v1 h-1 v-1 h-1 v-1 h-1 v1 h-1 v1 h-1 v-1 h1 v-1 h1 z" />
+			</g>
+
+			<!-- Underscore -->
+			<g>
+				<use class="outline" href="#font__underscore" />
+				<path id="font__underscore" d="m1,7 h3 v1 h-3 z" />
+			</g>
+
+			<!-- Backtick -->
+			<g>
+				<use class="outline" href="#font__backtick" />
+				<path id="font__backtick" d="m1,1 h1 v1 h1 v1 h-1 v-1 h-1 z" />
+			</g>
+		</g>
+
+		<g class="row">
+			<!-- a -->
+			<g>
+				<use class="outline" href="#font__a" />
+				<path id="font__a" d="m2,3 h2 v1 h1 v4 h-3 v-1 h-1 v-3 h1 Z M2,4 v3 h2 v-3 z" />
+			</g>
+
+			<!-- b -->
+			<g>
+				<use class="outline" href="#font__b" />
+				<path id="font__b" d="m1,1 h1 v2 h2 v1 h1 v3 h-1 v1 h-3 Z M2,4 v3 h2 v-3 z" />
+			</g>
+
+			<!-- c -->
+			<g>
+				<use class="outline" href="#font__c" />
+				<path id="font__c" d="m2,3 h2 v1 h1 v1 h-1 v-1 h-2 v3 h2 v-1 h1 v1 h-1 v1 h-2 v-1 h-1 v-3 h1 z" />
+			</g>
+
+			<!-- d -->
+			<g>
+				<use class="outline" href="#font__d" />
+				<path id="font__d" d="m4,1 h1 v7 h-3 v-1 h-1 v-3 h1 v-1 h2 Z M2,4 v3 h2 v-3 z" />
+			</g>
+
+			<!-- e -->
+			<g>
+				<use class="outline" href="#font__e" />
+				<path id="font__e" d="m2,3 h2 v1 h1 v2 h-3 v1 h2 v1 h-2 v-1 h-1 v-3 h1 Z M2,4 v1 h2 v-1 z" />
+			</g>
+
+			<!-- f -->
+			<g>
+				<use class="outline" href="#font__f" />
+				<path id="font__f" d="m3,1 h1 v1 h-1 v2 h1 v1 h-1 v3 h-1 v-3 h-1 v-1 h1 v-2 h1 z" />
+			</g>
+
+			<!-- g -->
+			<g>
+				<use class="outline" href="#font__g" />
+				<path id="font__g" d="m2,3 h2 v1 h1 v5 h-1 v1 h-2 v-1 h2 v-1 h-2 v-1 h-1 v-3 h1 Z M2,4 v3 h2 v-3 z" />
+			</g>
+
+			<!-- h -->
+			<g>
+				<use class="outline" href="#font__h" />
+				<path id="font__h" d="m1,1 h1 v2 h2 v1 h1 v4 h-1 v-4 h-2 v4 h-1 z" />
+			</g>
+
+			<!-- i -->
+			<g>
+				<use class="outline" href="#font__i" />
+				<path id="font__i" d="m1,3 h1 v1 h-1 Z M1,5 h1 v3 h-1 z" />
+			</g>
+
+			<!-- j -->
+			<g>
+				<use class="outline" href="#font__j" />
+				<path id="font__j" d="m2,1 h1 v1 h-1 Z M2,3 h1 v6 h-1 v1 h-1 v-1 h1 z" />
+			</g>
+
+			<!-- k -->
+			<g>
+				<use class="outline" href="#font__k" />
+				<path id="font__k" d="m1,1 h1 v2 h1 v-1 h1 v1 h-1 v1 h1 v1 h1 v3 h-1 v-3 h-1 v-1 h-1 v4 h-1 z" />
+			</g>
+
+			<!-- l -->
+			<g>
+				<use class="outline" href="#font__l" />
+				<path id="font__l" d="m1,1 h1 v7 h-1 z" />
+			</g>
+
+			<!-- m -->
+			<g>
+				<use class="outline" href="#font__m" />
+				<path id="font__m" d="m2,3 h1 v1 h1 v-1 h1 v1 h1 v4 h-1 v-4 h-1 v1 h-1 v-1 h-1 v4 h-1 v-4 h1 z" />
+			</g>
+
+			<!-- n -->
+			<g>
+				<use class="outline" href="#font__n" />
+				<path id="font__n" d="m1,3 h3 v1 h1 v4 h-1 v-4 h-2 v4 h-1  z" />
+			</g>
+
+			<!-- o -->
+			<g>
+				<use class="outline" href="#font__o" />
+				<path id="font__o" d="m2,3 h2 v1 h1 v3 h-1 v1 h-2 v-1 h-1 v-3 h1 Z M2,4 v3 h2 v-3 z" />
+			</g>
+
+			<!-- p -->
+			<g>
+				<use class="outline" href="#font__p" />
+				<path id="font__p" d="m2,3 h2 v1 h1 v3 h-1 v1 h-2 v2 h-1 v-6 h1 Z M2,4 v3 h2 v-3 z" />
+			</g>
+		</g>
+
+		<g class="row">
+			<!-- q -->
+			<g>
+				<use class="outline" href="#font__q" />
+				<path id="font__q" d="m2,3 h2 v1 h1 v2 h-1 v1 h1 v1 h-1 v-1 h-1 v1 h-1 v-1 h-1 v-3 h1 Z M2,4 v3 h1 v-1 h1 v-2 z" />
+			</g>
+
+			<!-- r -->
+			<g>
+				<use class="outline" href="#font__r" />
+				<path id="font__r" d="m1,3 h2 v1 h1 v2 h-1 v-2 h-1 v4 h-1 z" />
+			</g>
+
+			<!-- s -->
+			<g>
+				<use class="outline" href="#font__s" />
+				<path id="font__s" d="m2,3 h2 v1 h-2 v1 h1 v1 h1 v1 h-1 v1 h-2 v-1 h2 v-1 h-1 v-1 h-1 v-1 h1 z" />
+			</g>
+
+			<!-- t -->
+			<g>
+				<use class="outline" href="#font__t" />
+				<path id="font__t" d="m2,1 h1 v3 h1 v1 h-1 v2 h1 v1 h-1 v-1 h-1 v-2 h-1 v-1 h1 z" />
+			</g>
+
+			<!-- u -->
+			<g>
+				<use class="outline" href="#font__u" />
+				<path id="font__u" d="m1,3 h1 v4 h2 v-4 h1 v4 h-1 v1 h-2 v-1 h-1 z" />
+			</g>
+
+			<!-- v -->
+			<g>
+				<use class="outline" href="#font__v" />
+				<path id="font__v" d="m1,3 h1 v2 h1 v2 h1 v-2 h1 v-2 h1 v2 h-1 v2 h-1 v1 h-1 v-1 h-1 v-2 h-1 z" />
+			</g>
+
+			<!-- w -->
+			<g>
+				<use class="outline" href="#font__w" />
+				<path id="font__w" d="m1,3 h1 v2 h1 v2 h1 v-2 h1 v2 h1 v-2 h1 v-2 h1 v2 h-1 v2 h-1 v1 h-1 v-1 h-1 v1 h-1 v-1 h-1 v-2 h-1 z" />
+			</g>
+
+			<!-- x -->
+			<g>
+				<use class="outline" href="#font__x" />
+				<path id="font__x" d="m1,3 h1 v1 h1 v1 h1 v-1 h1 v-1 h1 v1 h-1 v1 h-1 v1 h1 v1 h1 v1 h-1 v-1 h-1 v-1 h-1 v1 h-1 v1 h-1 v-1 h1 v-1 h1 v-1 h-1 v-1 h-1 z" />
+			</g>
+
+			<!-- y -->
+			<g>
+				<use class="outline" href="#font__y" />
+				<path id="font__y" d="m1,3 h1 v4 h2 v-4 h1 v6 h-1 v1 h-2 v-1 h2 v-1 h-2 v-1 h-1 z" />
+			</g>
+
+			<!-- z -->
+			<g>
+				<use class="outline" href="#font__z" />
+				<path id="font__z" d="m1,3 h4 v2 h-1 v1 h-2 v1 h3 v1 h-4 v-2 h1 v-1 h2 v-1 h-3 z" />
+			</g>
+
+			<!-- Opening Brace -->
+			<g>
+				<use class="outline" href="#font__opening-brace" />
+				<path id="font__opening-brace" d="m3,1 h1 v1 h-1 v2 h-1 v1 h1 v2 h1 v1 h-1 v-1 h-1 v-2 h-1 v-1 h1 v-2 h1 z" />
+			</g>
+
+			<!-- Pipe -->
+			<g>
+				<use class="outline" href="#font__pipe" />
+				<path id="font__pipe" d="m1,1 h1 v7 h-1 z" />
+			</g>
+
+			<!-- Closing Brace -->
+			<g>
+				<use class="outline" href="#font__closing-brace" />
+				<use id="font__closing-brace" href="#font__opening-brace" transform="rotate(180, 2.5, 4.5)" />
+			</g>
+
+			<!-- Tilde -->
+			<g>
+				<use class="outline" href="#font__tilde" />
+				<path id="font__tilde" d="m2,3 h1 v1 h1 v-1 h1 v1 h-1 v1 h-1 v-1 h-1 v1 h-1 v-1 h1 z" />
+			</g>
+		</g>
+	</g>
+</svg>
